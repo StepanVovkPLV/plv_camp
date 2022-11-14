@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "*.tcc": "c",
+        "header.h": "c",
+        "math.h": "c"
+    }
+}

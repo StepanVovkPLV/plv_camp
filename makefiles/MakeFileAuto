@@ -1,0 +1,16 @@
+all:test
+
+test: src1.o src2.o src3.o     
+	gcc $^ -o $@
+	
+src1.o: src1.c
+	gcc -c $< 
+
+src2.o: src2.c
+	gcc -c $<
+
+src3.o: src3.c
+	gcc -c $<
+
+clean :
+	rm *.o
