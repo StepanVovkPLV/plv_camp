@@ -8,7 +8,7 @@ char toup()
     char s[100];
     int i;
     printf("Enter a string : ");
-    gets(s);
+    fgets(s, 100, stdin);
     for (i = 0; s[i] != '\0'; i++)
     {
         if (s[i] >= 'a' && s[i] <= 'z')

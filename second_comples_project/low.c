@@ -7,14 +7,14 @@ char tolow()
     char str[100];
     int i;
     printf("Enter a string : ");
-    gets(str);
-    for (i = 0; s[i] != '\0'; i++)
+    fgets(str, 100, stdin);
+    for (i = 0; str[i] != '\0'; i++)
     {
-        if (s[i] >= 'a' && s[i] <= 'z')
+        if (str[i] >= 'a' && str[i] <= 'z')
         {
-            s[i] = s[i] - 32;
+            str[i] = str[i] - 32;
         }
     }
-    printf("String in Upper Case = %s", s);
+    printf("String in Upper Case = %s", str);
     return 0;
 }
