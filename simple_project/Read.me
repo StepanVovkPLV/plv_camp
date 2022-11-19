@@ -6,7 +6,11 @@ How to install
 4. Run `automake --add-missing` in project directory
 5. Run `./configure` in the project directory
 6. Run `sudo make install` in the project directory
-7. Add the following to end of Makefile
-clean-all: 
-	rm -rf /usr/local/bin/helloworld *.o *.m4 *.log 
-	rm -rf Makefile.in Makefile  configure helloworld
+
+How to use:
+
+	run the following command in the project directory ./helloworld
+
+
+How to uninstall:
+	run the following command in the project directory `make clean-all`
