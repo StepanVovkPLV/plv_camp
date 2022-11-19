@@ -6,17 +6,20 @@ directory=$1
 # Required functions 
 is_directory (){
     if [ ! -d $1 ]; then
+    echo " INPUT $1"
     echo "ERROR: Not a directory: <$1>"
     return 1
     fi
 }
 return_file_type(){ 
+    
     if [ -x "${file}" ]; then   
-        echo "File $(basename ${file})  is executable "
-        return
-    fi
-    if (test -h "${file}"); then
-        echo "File $(basename ${file}) is softlink"
+        if ! [ -h "${file}" ]; then
+        echo "File $(basename ${file}) is executable "
+        
+        else
+        echo "File $(basename ${file})  is softlink "
+        fi
     fi
 
 }
@@ -33,5 +36,7 @@ return_file_type(){
         directory=`pwd`
     fi
     for file in /$directory/* ;do 
-        return_file_type $file
+        if [ ! -d "${file}" ]; then
+            return_file_type $file
+        fi
     done
