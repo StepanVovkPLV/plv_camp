@@ -1,23 +1,30 @@
-CC = gcc
-CFLAGS = -fPIC -Wall -Wextra -O2 -g 
-LDFLAGS = -shared 
-RM = rm -f 
-TARGET_LIB = libtarget.so  
+PROGRAM_UP = converter
+LIBRARY = libconv.so
+LIBRARY_PATH = /usr/lib/
+CHECKS = -Wall -Werror -Wextra -fpic
 
-SRCS = main.c low.c up.c 
-OBJS = $(SRCS:.c=.o)
+all: converter #libsetup
 
-.PHONY: all
-all: ${TARGET_LIB}
+converter: main.c lib libsetup
+	gcc ${CHECKS} main.c -L . -l convert -o conv
 
-$(TARGET_LIB): $(OBJS)
-	$(CC) ${LDFLAGS} -o $@ $^
+links: 
+	gcc ${CHECKS} -fpic -c low.c upper.c
 
-$(SRCS:.c=.d):%.d:%.c
-	$(CC) $(CFLAGS) -MM $< >$@
+lib: links
+	gcc -shared -o ${LIBRARY} low.o upper.o
 
-include $(SRCS:.c=.d)
+libsetup:
+	sudo cp `pwd`/${LIBRARY} ${LIBRARY_PATH}
+	sudo chmod 0755 ${LIBRARY_PATH}${LIBRARY}
+	sudo ldconfig
+	unset LD_LIBRARY_PATH
+	gcc main.c -l conv -Wall -o main
 
-.PHONY: clean
-clean:
-	-${RM} ${TARGET_LIB} ${OBJS} $(SRCS:.c=.d)
+clean:	
+	rm -f *.o
+
+clean-all: clean
+	rm -f ${PROGRAM_UP}
+	rm -f ${LIBRARY}
+	sudo rm -f ${LIBRARY_PATH}${LIBRARY}
