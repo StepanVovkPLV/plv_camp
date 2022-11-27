@@ -1,0 +1,20 @@
+Commands
+
+Create network 
+docker network create --driver bridge  --subnet=172.18.0.0/16 mynetwork
+
+Check network exists
+docker network inspect mynetwork
+
+Build images from Dockerfile : 
+
+Client : docker image build ./ -t client:first
+
+Server: docker image build ./server_file/ -t server:first
+Dockerfile for server one directory down 
+
+Run containers:
+
+Server: docker container run --network=mynetwork -i -t -v   $(pwd):/home/homework  server:first
+
+Client: docker container run --network=mynetwork -i -t -v   $(pwd):/home/homework  client:first
